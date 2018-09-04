@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<package name="user" namespace="/" extends="struts-default">
+<interceptors>
+	<interceptor-stack name="iamgeloadStack">
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/bmp,image/jpeg,image/pjpeg,image/gif,image/png,image/x-png</param>
+				<param name="maximumSize">1024000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+	</interceptor-stack>
+</interceptors>
+
+	<action name="*Student" class="studentAction" method="{1}">
+		<interceptor-ref name="iamgeloadStack"></interceptor-ref>
+		<result name="add_success">regist-success.jsp</result>
+		<result name="adminadd_success" type="redirectAction">/findByPageStudent.action?nowpage=1</result>
+		<result name="login_success">index.jsp</result>
+		<result name="no_user">login.jsp</result>
+		<result name="update_success">index.jsp</result>
+		<result name="changepwd_success">/student/usercenter.jsp</result>
+		<result name="changepwd_error">/student/change-password.jsp</result>
+		<result name="delete_success">/admin/user-list2.jsp</result>
+		<result name="statusUd_success">/admin/user-list2.jsp</result>
+		<result name="exit_success">login.jsp</result>
+		<result name="findByPage_success">/admin/user-list2.jsp</result>
+		<result name="addChart_success">/student/zk.jsp</result>
+		<result name="checkUName_success">/student/zk.jsp</result>
+		<result name="error_register">/register.jsp</result>
+		<result name="error">/admin/add-user2.jsp</result>
+		<result name="register_error">/register.jsp</result>
+		<result name="yzm_success">/login.jsp</result>
+		<result name="input">/${ret }</result> 
+	</action>
+	
+	<action name="*Admin" class="adminAction" method="{1}" >
+		
+		<result name="adminlogin_success">/admin/index2.jsp</result>
+		<result name="no_user">/admin/index.jsp</result>
+		<result name="adminadd_success" type="redirectAction">/findByPageAdmin.action?nowpage=1</result>
+		<result name="exit_success">/admin/index.jsp</result>
+		<result name="findByPage_success">/admin/sys-admin-list2.jsp</result>
+		<result name="error">/admin/add-admin2.jsp</result>
+	</action>
+</package>
+</struts>    
